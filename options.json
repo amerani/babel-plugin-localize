@@ -1,0 +1,8 @@
+{
+    "elementsReplaceStringAttributes": {
+        "LabelProvider": 1
+    },
+    "elementsPreserveJsxText": {
+        "PreserveMyText": 1
+    }
+}
