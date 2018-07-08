@@ -1,0 +1,18 @@
+{
+    "presets": ["@babel/preset-typescript"],
+    "plugins": [
+        ["./babel-plugin/index", {
+            "elementsReplaceStringAttributes": {
+                "LabelProvider": ["label"]
+            },
+            "elementsPreserveJsxText": {
+                "PreserveMyText": 1
+            },
+            "key": {
+                "type": "function",
+                "functionName": "localize",
+                "keyName": "loc_"
+            }
+        }]
+    ]
+}
