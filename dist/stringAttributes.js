@@ -1,7 +1,7 @@
 export default function render() {
   return [
   <App>
-    <LabelProvider label="loc_0" className="inputLabel" />
+    <LabelProvider label={localize("loc_0")} className="inputLabel" />
     <Input id="id" />
   </App>];
 

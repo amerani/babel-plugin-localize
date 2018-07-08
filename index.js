@@ -6,11 +6,13 @@ const options = require('./options.json');
 
 const {
     elementsReplaceStringAttributes,
-    elementsPreserveJsxText
+    elementsPreserveJsxText,
+    key
 } = options;
+const { functionName, keyName } = key;
 
 function loc(strings, idExp){
-    return `loc_${idExp}`
+    return `${keyName}${idExp}`
 }
 
 function isPunctuation(val){
@@ -28,17 +30,30 @@ function traverseAst(ast) {
     })
 }
 
+function buildExpression(id){
+    return t.jsxExpressionContainer(
+        t.callExpression(
+            t.identifier(functionName),
+            [t.stringLiteral(loc`${id++}`)]))
+}
+
+function replaceWithExpression(path, id){
+    path.replaceWith(buildExpression(id));
+}
+
 function replaceJsxStringAttributes(path, id){
-    if(t.isJSXOpeningElement(path.node,{})) {
-        const attrsToReplace = elementsReplaceStringAttributes[path.node.name.name];
-        if(attrsToReplace && attrsToReplace.length > 0){
-            path.node.attributes.forEach(attr => {
-                if(t.isStringLiteral(attr.value) &&
-                   attrsToReplace.indexOf(attr.name.name) >= 0)
-                {
-                    attr.value.value = loc`${id++}`
-                }
-            })
+    if(t.isJSXAttribute(path.node)){
+        const attrsToReplace = elementsReplaceStringAttributes[path.parent.name.name];
+        if(t.isStringLiteral(path.node.value) &&
+           attrsToReplace &&
+           attrsToReplace.indexOf(path.node.name.name) >= 0)
+        {
+            if(key.type === 'function') {
+                path.node.value = buildExpression(id);
+            }
+            else {
+                path.node.value = t.stringLiteral(loc`${id++}`)
+            }
         }
     }
     return id;
@@ -46,19 +61,19 @@ function replaceJsxStringAttributes(path, id){
 
 function replaceJsxText(path, id){
     if(t.isJSXText(path.node,{})){
-
         const value = path.node.value;
-        
         if(value != null && value.trim() !== ''){
-
             if(t.isJSXElement(path.parent) &&
                !elementsPreserveJsxText[path.parent.openingElement.name.name] &&
                !isPunctuation(value))
             {
-                path.node.value = loc`${id++}`;
+                if(key.type === "function") {
+                    replaceWithExpression(path, id++);
+                } else {
+                    path.node.value = loc`${id++}`;
+                }
             }
         }
-
         if(value.trim() === '' && !isPunctuation(value)){
             path.node.value = value.trim();
         }

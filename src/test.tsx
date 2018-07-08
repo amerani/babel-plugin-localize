@@ -1,5 +1,6 @@
 let App;
 let LabelProvider;
+let localize;
 export default class ListPage {
     constructor(props:any){
     }

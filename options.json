@@ -4,5 +4,10 @@
     },
     "elementsPreserveJsxText": {
         "PreserveMyText": 1
+    },
+    "key": {
+        "type": "function",
+        "functionName": "localize",
+        "keyName": "loc_"
     }
 }

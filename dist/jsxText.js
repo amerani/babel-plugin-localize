@@ -1,11 +1,11 @@
 export default function render() {
   return [
   <App>
-    <Simple>loc_0</Simple>
-    <Nested>loc_1<Inline>loc_2</Inline>.</Nested>
-    <ul>loc_3
-      <li>loc_4</li>
-      <li>loc_5</li>
+    <Simple>{localize("loc_0")}</Simple>
+    <Nested>{localize("loc_1")}<Inline>{localize("loc_2")}</Inline>.</Nested>
+    <ul>{localize("loc_3")}
+      <li>{localize("loc_4")}</li>
+      <li>{localize("loc_5")}</li>
     </ul>
     <PreserveMyText>i am special</PreserveMyText>
   </App>];
