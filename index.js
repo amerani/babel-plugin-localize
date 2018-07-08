@@ -30,9 +30,12 @@ function traverseAst(ast) {
 
 function replaceJsxStringAttributes(path, id){
     if(t.isJSXOpeningElement(path.node,{})) {
-        if(elementsReplaceStringAttributes[path.node.name.name]){
+        const attrsToReplace = elementsReplaceStringAttributes[path.node.name.name];
+        if(attrsToReplace && attrsToReplace.length > 0){
             path.node.attributes.forEach(attr => {
-                if(t.isStringLiteral(attr.value)){
+                if(t.isStringLiteral(attr.value) &&
+                   attrsToReplace.indexOf(attr.name.name) >= 0)
+                {
                     attr.value.value = loc`${id++}`
                 }
             })
