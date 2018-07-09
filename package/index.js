@@ -3,24 +3,7 @@ const traverse = require('@babel/traverse').default;
 const t = require('@babel/types');
 const generate = require('@babel/generator').default;
 
-let options = {
-    elementsReplaceStringAttributes: {},
-    elementsPreserveJsxText: {},
-    key: {
-        type: "string",
-        keyName: "loc_"
-    }
-};
-const {
-    elementsReplaceStringAttributes,
-    elementsPreserveJsxText,
-    key
-} = options;
-const { functionName, keyName } = key;
-
-function loc(strings, idExp){
-    return `${keyName}${idExp}`
-}
+let options;
 
 function isPunctuation(val){
     const punctuations = ['.', ',', ';', '?', '!'];
@@ -49,6 +32,9 @@ function replaceWithExpression(path, id){
 }
 
 function replaceJsxStringAttributes(path, id){
+    const { elementsReplaceStringAttributes, key } = options; 
+    const { keyName } = key;
+
     if(t.isJSXAttribute(path.node)){
         const attrsToReplace = elementsReplaceStringAttributes[path.parent.name.name];
         if(t.isStringLiteral(path.node.value) &&
@@ -59,7 +45,7 @@ function replaceJsxStringAttributes(path, id){
                 path.node.value = buildExpression(id);
             }
             else {
-                path.node.value = t.stringLiteral(loc`${id++}`)
+                path.node.value = t.stringLiteral(`${keyName}${id++}`)
             }
         }
     }
@@ -67,6 +53,9 @@ function replaceJsxStringAttributes(path, id){
 }
 
 function replaceJsxText(path, id){
+    const { elementsPreserveJsxText, key } = options;
+    const { keyName } = key;
+
     if(t.isJSXText(path.node,{})){
         const value = path.node.value;
         if(value != null && value.trim() !== ''){
@@ -77,7 +66,7 @@ function replaceJsxText(path, id){
                 if(key.type === "function") {
                     replaceWithExpression(path, id++);
                 } else {
-                    path.node.value = loc`${id++}`;
+                    path.node.value = `${keyName}${id++}`;
                 }
             }
         }
@@ -89,7 +78,16 @@ function replaceJsxText(path, id){
 }
 
 module.exports.transform = function(code, opt) {
-    options = opt;
+    const key = {
+        type: "string",
+        keyName: "loc_"
+    };
+    options = opt || {
+        elementsReplaceStringAttributes: {},
+        elementsPreserveJsxText: {},
+        key
+    };
+    options.key = options.key || key;
     const ast = parse(code, { 
         sourceType: 'unambiguous',
         plugins: [
@@ -99,7 +97,7 @@ module.exports.transform = function(code, opt) {
         ]
     });
     
-    traverseAst(ast);
+    traverseAst(ast, options);
     
     const output = generate(ast, {
         retainLines: true,

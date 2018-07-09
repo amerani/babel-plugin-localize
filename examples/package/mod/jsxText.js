@@ -7,7 +7,7 @@ export default function render() {
       <li>loc_4</li>
       <li>loc_5</li>
     </ul>
-    <PreserveMyText>loc_6</PreserveMyText>
+    <PreserveMyText>i am special</PreserveMyText>
   </App>];
 
 }

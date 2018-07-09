@@ -9,6 +9,6 @@ export default class ListPage {
       <App>loc_0
 
         <p>loc_1</p>
-        <LabelProvider label="important" />
+        <LabelProvider label="loc_2" />
       </App>);
   }}
