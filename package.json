@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest /tests",
     "package": "node examples/package/main.js",
     "plugin": "babel examples/babel-plugin/src --out-dir examples/babel-plugin/mod --extensions \".js,.tsx\""
   },
@@ -19,6 +19,7 @@
     "@babel/traverse": "^7.0.0-beta.52",
     "@babel/types": "^7.0.0-beta.52",
     "fs-extra": "^6.0.1",
+    "jest": "^23.3.0",
     "klaw": "^2.1.1"
   }
 }
