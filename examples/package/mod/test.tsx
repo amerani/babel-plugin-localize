@@ -6,9 +6,9 @@ export default class ListPage {
   }
   render() {
     return (
-      <App>{localize("loc_0")}
+      <App>loc_0
 
-        <p>{localize("loc_1")}</p>
-        <LabelProvider label={localize("loc_2")} />
+        <p>loc_1</p>
+        <LabelProvider label="important" />
       </App>);
   }}

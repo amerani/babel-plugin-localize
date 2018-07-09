@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "babel src --out-dir dist --extensions \".js,.tsx\""
+    "package": "node examples/package/main.js",
+    "plugin": "babel examples/babel-plugin/src --out-dir examples/babel-plugin/mod --extensions \".js,.tsx\""
   },
   "author": "Alek Merani",
   "license": "MIT",

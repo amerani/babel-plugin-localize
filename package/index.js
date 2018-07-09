@@ -2,8 +2,15 @@ const {parse} = require('@babel/parser');
 const traverse = require('@babel/traverse').default;
 const t = require('@babel/types');
 const generate = require('@babel/generator').default;
-const options = require('./options.json');
 
+let options = {
+    elementsReplaceStringAttributes: {},
+    elementsPreserveJsxText: {},
+    key: {
+        type: "string",
+        keyName: "loc_"
+    }
+};
 const {
     elementsReplaceStringAttributes,
     elementsPreserveJsxText,
@@ -81,7 +88,8 @@ function replaceJsxText(path, id){
     return id;
 }
 
-module.exports.transform = function(code) {
+module.exports.transform = function(code, opt) {
+    options = opt;
     const ast = parse(code, { 
         sourceType: 'unambiguous',
         plugins: [
