@@ -9,3 +9,8 @@ export default class ListPage {
   }
 
 }
+const keyMap = {
+  loc_7: "text",
+  loc_8: "some text also",
+  loc_9: "important"
+};

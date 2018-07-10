@@ -1,3 +1,4 @@
+let localizer;//import
 export default function render() {
     return ([
         <App>
@@ -11,3 +12,4 @@ export default function render() {
         </App>
     ])
 }
+const localize = (key) => localizer(keyMap)(key);

@@ -1,6 +1,17 @@
 let id = 0;
 const punctuations = ['.', ',', ';', '?', '!'];
 
+function addToKeyMap(t, path, key, value) {
+    const programPath = path.findParent(path => path.isProgram());
+    const keyMapNode = programPath.node.body
+        .reduce((acc, node) => acc.concat(node.declarations),[])
+        .filter(dec => dec)
+        .filter(dec => dec.id.name === 'keyMap')[0];
+    keyMapNode.init.properties.push(t.objectProperty(
+        t.identifier(key), t.stringLiteral(value))
+    )
+}
+
 module.exports = function({types:t}){
     const isPunctuation = (value) => punctuations.indexOf(value.trim()) >= 0;
     return {
@@ -8,6 +19,11 @@ module.exports = function({types:t}){
             parserOpts.plugins.push('classProperties', 'typescript', 'jsx')
         },
         visitor: {
+            Program(path) {
+                path.node.body.push(t.variableDeclaration("const", [
+                    t.variableDeclarator(t.identifier("keyMap"), t.objectExpression([]))
+                ]))
+            },
             JSXText(path, state) {
                 const {
                     elementsPreserveJsxText,
@@ -19,14 +35,17 @@ module.exports = function({types:t}){
                        !elementsPreserveJsxText[path.parent.openingElement.name.name] &&
                        !isPunctuation(value))
                     {
+                        const replacedValue = value.trim();
+                        const locKey = `${key.keyName}${id++}`;
                         if(key.type === "function") {
                             path.replaceWith(t.jsxExpressionContainer(
                                 t.callExpression(
                                     t.identifier(key.functionName),
-                                    [t.stringLiteral(`${key.keyName}${id++}`)])));
+                                    [t.stringLiteral(locKey)])));
                         } else {
-                            path.node.value = `${keyName}${id++}`;
+                            path.node.value = locKey;
                         }
+                        addToKeyMap(t, path, locKey, replacedValue);
                     }
                 }
                 if(value.trim() === '' && !isPunctuation(value)){
@@ -44,15 +63,18 @@ module.exports = function({types:t}){
                    attrsToReplace &&
                    attrsToReplace.indexOf(path.node.name.name) >= 0)
                 {
+                    const replacedValue = path.node.value.value;
+                    const locKey = `${key.keyName}${id++}`;
                     if(key.type === 'function') {
                         path.node.value = t.jsxExpressionContainer(
                             t.callExpression(
                                 t.identifier(key.functionName),
-                                [t.stringLiteral(`${key.keyName}${id++}`)]));
+                                [t.stringLiteral(locKey)]));
                     }
                     else {
-                        path.node.value = t.stringLiteral(`${key.keyName}${id++}`)
+                        path.node.value = t.stringLiteral(locKey)
                     }
+                    addToKeyMap(t, path, locKey, replacedValue)
                 }                
             }
         }
