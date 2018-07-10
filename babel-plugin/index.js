@@ -2,7 +2,7 @@ let id = 0;
 const punctuations = ['.', ',', ';', '?', '!'];
 
 module.exports = function({types:t}){
-    const isPunctuation = (value) => punctuations.indexOf(value.trim) >= 0;
+    const isPunctuation = (value) => punctuations.indexOf(value.trim()) >= 0;
     return {
         manipulateOptions(opts, parserOpts) {
             parserOpts.plugins.push('classProperties', 'typescript', 'jsx')
@@ -14,7 +14,6 @@ module.exports = function({types:t}){
                     key
                 } = state.opts;
                 const value = path.node.value;
-
                 if(value != null && value.trim() !== ''){
                     if(t.isJSXElement(path.parent) &&
                        !elementsPreserveJsxText[path.parent.openingElement.name.name] &&
