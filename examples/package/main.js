@@ -1,6 +1,6 @@
 const {readFile, writeFile, ensureFile} = require('fs-extra');
 const klaw = require('klaw');
-const { transform } = require('../../package/index');
+const { transform } = require('../../src/package');
 const path = require('path');
 
 klaw(path.resolve(__dirname, 'src'))
