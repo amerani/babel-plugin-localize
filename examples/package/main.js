@@ -3,7 +3,7 @@ const klaw = require('klaw');
 const { transform } = require('../../src/package');
 const path = require('path');
 
-klaw(path.resolve(__dirname, 'src'))
+klaw(path.resolve(__dirname, 'input'))
 .on('data', async item => {
     if(item.path.endsWith('.js') || item.path.endsWith('.tsx')){
         const file = item.path;
@@ -16,7 +16,7 @@ klaw(path.resolve(__dirname, 'src'))
                 "PreserveMyText": 1
             }
         });
-        const outFile = file.replace('/src/', '/mod/');
+        const outFile = file.replace('/input/', '/output/');
         await ensureFile(outFile);
         await writeFile(outFile, output.code, {encoding:'utf-8'});
     }

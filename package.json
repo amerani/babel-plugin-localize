@@ -1,25 +1,27 @@
 {
-  "name": "babel-localize",
+  "name": "localize",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "package": "node examples/package/main.js",
-    "plugin": "babel examples/babel-plugin/src --out-dir examples/babel-plugin/mod --extensions \".js,.tsx\""
+    "plugin": "babel examples/babel-plugin/input --out-dir examples/babel-plugin/output --extensions \".js,.tsx\""
   },
   "author": "Alek Merani",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.0.0-beta.52",
     "@babel/core": "^7.0.0-beta.52",
     "@babel/generator": "^7.0.0-beta.52",
     "@babel/parser": "^7.0.0-beta.52",
-    "@babel/preset-typescript": "^7.0.0-beta.52",
     "@babel/traverse": "^7.0.0-beta.52",
-    "@babel/types": "^7.0.0-beta.52",
+    "@babel/types": "^7.0.0-beta.52"
+  },
+  "devDependencies":{
+    "@babel/cli": "^7.0.0-beta.52",
+    "@babel/preset-typescript": "^7.0.0-beta.52",
     "fs-extra": "^6.0.1",
-    "jest": "^23.3.0",
+    "jest": "^23.4.0",
     "klaw": "^2.1.1"
   }
 }
