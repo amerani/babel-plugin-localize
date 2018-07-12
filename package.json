@@ -1,8 +1,8 @@
 {
-  "name": "localize",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "name": "babel-localize",
+  "version": "0.1.1",
+  "description": "codemod to localize static strings",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest",
     "package": "node examples/package/main.js",
@@ -17,9 +17,10 @@
     "@babel/traverse": "^7.0.0-beta.52",
     "@babel/types": "^7.0.0-beta.52"
   },
-  "devDependencies":{
+  "devDependencies": {
     "@babel/cli": "^7.0.0-beta.52",
     "@babel/preset-typescript": "^7.0.0-beta.52",
+    "babel-localize": "^0.1.1",
     "fs-extra": "^6.0.1",
     "jest": "^23.4.0",
     "klaw": "^2.1.1"

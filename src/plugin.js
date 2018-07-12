@@ -8,7 +8,7 @@ function setOptions(options) {
     _context.options = init(options);
 }
 
-module.exports = function({types:t}){
+module.exports.plugin = function({types:t}){
     return {
         manipulateOptions(opts, parserOpts) {
             parserOpts.plugins.push('classProperties', 'typescript', 'jsx')
