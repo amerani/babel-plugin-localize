@@ -1,4 +1,4 @@
-const { transform } = require('../package/index');
+const { transform } = require('../src/package');
 
 test('should transform string attribute', () => {
     const input = `<Title name="hello world" />;`;
