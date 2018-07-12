@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest /tests",
+    "test": "jest",
     "package": "node examples/package/main.js",
     "plugin": "babel examples/babel-plugin/src --out-dir examples/babel-plugin/mod --extensions \".js,.tsx\""
   },
