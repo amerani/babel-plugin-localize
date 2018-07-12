@@ -1,81 +1,30 @@
-let id = 0;
-const punctuations = ['.', ',', ';', '?', '!'];
+const { buildKeyMap } = require('../builders');
+const { replaceJsxAttribute, replaceJsxText } = require('../replacers');
+const { init } = require('../options');
+const context = require('../context');
 
-function addToKeyMap(t, path, key, value) {
-    const programPath = path.findParent(path => path.isProgram());
-    const keyMapNode = programPath.node.body
-        .reduce((acc, node) => acc.concat(node.declarations),[])
-        .filter(dec => dec)
-        .filter(dec => dec.id.name === 'keyMap')[0];
-    keyMapNode.init.properties.push(t.objectProperty(
-        t.identifier(key), t.stringLiteral(value))
-    )
+let _context;
+function setOptions(options) {
+    _context.options = init(options);
 }
 
 module.exports = function({types:t}){
-    const isPunctuation = (value) => punctuations.indexOf(value.trim()) >= 0;
     return {
         manipulateOptions(opts, parserOpts) {
             parserOpts.plugins.push('classProperties', 'typescript', 'jsx')
         },
         visitor: {
             Program(path) {
-                path.node.body.push(t.variableDeclaration("const", [
-                    t.variableDeclarator(t.identifier("keyMap"), t.objectExpression([]))
-                ]))
+                _context = new context(t, {});
+                buildKeyMap(path, _context);
             },
             JSXText(path, state) {
-                const {
-                    elementsPreserveJsxText,
-                    key
-                } = state.opts;
-                const value = path.node.value;
-                if(value != null && value.trim() !== ''){
-                    if(t.isJSXElement(path.parent) &&
-                       !elementsPreserveJsxText[path.parent.openingElement.name.name] &&
-                       !isPunctuation(value))
-                    {
-                        const replacedValue = value.trim();
-                        const locKey = `${key.keyName}${id++}`;
-                        if(key.type === "function") {
-                            path.replaceWith(t.jsxExpressionContainer(
-                                t.callExpression(
-                                    t.identifier(key.functionName),
-                                    [t.stringLiteral(locKey)])));
-                        } else {
-                            path.node.value = locKey;
-                        }
-                        addToKeyMap(t, path, locKey, replacedValue);
-                    }
-                }
-                if(value.trim() === '' && !isPunctuation(value)){
-                    path.node.value = value.trim();
-                }
+                setOptions(state.opts);
+                replaceJsxText(path, _context);
             },
             JSXAttribute(path, state) {
-                const {
-                    elementsReplaceStringAttributes,
-                    key
-                } = state.opts;
-
-                const attrsToReplace = elementsReplaceStringAttributes[path.parent.name.name];
-                if(t.isStringLiteral(path.node.value) &&
-                   attrsToReplace &&
-                   attrsToReplace.indexOf(path.node.name.name) >= 0)
-                {
-                    const replacedValue = path.node.value.value;
-                    const locKey = `${key.keyName}${id++}`;
-                    if(key.type === 'function') {
-                        path.node.value = t.jsxExpressionContainer(
-                            t.callExpression(
-                                t.identifier(key.functionName),
-                                [t.stringLiteral(locKey)]));
-                    }
-                    else {
-                        path.node.value = t.stringLiteral(locKey)
-                    }
-                    addToKeyMap(t, path, locKey, replacedValue)
-                }                
+                setOptions(state.opts);
+                replaceJsxAttribute(path, _context);
             }
         }
     }
