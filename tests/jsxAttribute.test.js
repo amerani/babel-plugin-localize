@@ -7,7 +7,7 @@ test('should transform string attribute', () => {
             Title: ['name']
         }
     });
-    expect(output.code).toBe(`<Title name="loc_0" />;`);
+    expect(output.code).toBe(`<Title name="loc_0" />;const keyMap = { loc_0: \"hello world\" };`);
 })
 
 test('should only transform specified string attribute', () => {
@@ -17,19 +17,19 @@ test('should only transform specified string attribute', () => {
             Title: ['name']
         }
     });
-    expect(output.code).toBe(`<Title name="loc_0" id="title" />;`);
+    expect(output.code).toBe(`<Title name="loc_0" id="title" />;const keyMap = { loc_0: \"hello world\" };`);
 })
 
 test('should not transform string attribute', () => {
     const input = `<div id="myId"></div>;`;
     const output = transform(input);
-    expect(output.code).toBe(input);
+    expect(output.code).toBe(`${input}const keyMap = {};`);
 })
 
 test('should not transform bool attribute', () => {
     const input = `<Nav show={false} />;`
     const output = transform(input);
-    expect(output.code).toBe(input);
+    expect(output.code).toBe(`${input}const keyMap = {};`);
 })
 
 test('should replace string attribute with function expression', () => {
@@ -40,5 +40,5 @@ test('should replace string attribute with function expression', () => {
         },
         key: { type: 'function' }
     });
-    expect(output.code).toBe(`<Title name={loc(\"loc_0\")} />;`);
+    expect(output.code).toBe(`<Title name={loc(\"loc_0\")} />;const keyMap = { loc_0: \"hello world\" };`);
 })
