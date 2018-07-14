@@ -1,7 +1,6 @@
 const { init } = require('./keyMap');
 
 function buildKeyMap(path, ctx) {
-    ctx.id = 0;
     init({
         id: 'keyMap',
         node: path.node,

@@ -1,8 +1,13 @@
+const { init } = require('./options');
+
 class Context {
-    constructor(types, options){
+    constructor(types, options={}, id=0){
         this.types = types;
-        this.options = options;
-        this.id = 0;
+        this.options = init(options);
+        this.id = id;
+    }
+    set setOptions(options) {
+        this.options = init(options);
     }
 }
 
