@@ -224,9 +224,9 @@ atob@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.1.tgz#ae2d5a729477f289d60dd7f96a6314a22dd6c22a"
 
-babel-plugin-localize@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-localize/-/babel-plugin-localize-0.1.0.tgz#f78326eb59fb3ec6ceb540ef30f5b236465538a1"
+babel-plugin-localize@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-localize/-/babel-plugin-localize-0.2.0.tgz#71dfe0ed1e5e8c7b2faf2555aaa9907bc7bf26c4"
 
 balanced-match@^1.0.0:
   version "1.0.0"

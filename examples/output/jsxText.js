@@ -1,3 +1,4 @@
+import { localize } from "./localizer";
 export default function render() {
   return [<App>
             <Simple>{localize("0")}</Simple>
