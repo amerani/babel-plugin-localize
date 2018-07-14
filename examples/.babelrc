@@ -1,7 +1,7 @@
 {
     "presets": ["@babel/preset-typescript"],
     "plugins": [
-        ["../src/index", {
+        ["localize", {
             "elementsReplaceStringAttributes": {
                 "LabelProvider": ["label"]
             },

@@ -1,0 +1,15 @@
+{
+  "name": "babel-plugin-localize-examples",
+  "version": "0.1.0",
+  "author": "Alek Merani",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel input --out-dir output --extensions \".js,.tsx\""    
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.53",
+    "@babel/core": "^7.0.0-beta.53",
+    "@babel/preset-typescript": "^7.0.0-beta.53",
+    "babel-plugin-localize": "^0.1.0"
+  }
+}
