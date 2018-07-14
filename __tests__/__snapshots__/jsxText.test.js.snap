@@ -1,17 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shoud transform text 1`] = `
-"export default (() => <>
-        <p>{localize(\\"0\\")}</p>
-        <static>special text</static>
-    </>);
-export const localizeKeyMap = {
-  0: \\"hello world\\"
-};"
-`;
-
 exports[`should transform text 1`] = `
-"export default (() => <>
+"import { localize } from \\"./localizer\\";
+export default (() => <>
         <p>{localize(\\"0\\")}</p>
         <static>special text</static>
     </>);

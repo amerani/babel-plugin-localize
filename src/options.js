@@ -4,6 +4,8 @@ const defaultOptions = {
     keyPrefix: "",
     keyType: "serial",
     localizer: "localize",
+    localizerSource: "./localizer",
+    localizerBinding: "named",
     keyMapIdentifier: "localizeKeyMap"
 }
 

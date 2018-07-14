@@ -10,21 +10,35 @@ export default () => (
 );
 `
 
-test('shoud set key prefix', () => {
+test('should set key prefix', () => {
     const { code } = babel.transform(example, {plugins:[[plugin, {
         "keyPrefix": "test"
     }]]});
     expect(code).toMatchSnapshot();
 })
 
-test('shoud set localizer', () => {
+test('should set localizer', () => {
     const { code } = babel.transform(example, {plugins:[[plugin, {
         "localizer": "testLocalizer"
     }]]});
     expect(code).toMatchSnapshot();
 })
 
-test('shoud set keyMapIdentifier', () => {
+test('should set localizerSource', () => {
+    const { code } = babel.transform(example, {plugins:[[plugin, {
+        "localizerSource": "testlocalizerSource"
+    }]]});
+    expect(code).toMatchSnapshot();
+})
+
+test('should set localizerBinding', () => {
+    const { code } = babel.transform(example, {plugins:[[plugin, {
+        "localizerBinding": "testlocalizerBinding"
+    }]]});
+    expect(code).toMatchSnapshot();
+})
+
+test('should set keyMapIdentifier', () => {
     const { code } = babel.transform(example, {plugins:[[plugin, {
         "keyMapIdentifier": "testKeyMapIdentifier"
     }]]});

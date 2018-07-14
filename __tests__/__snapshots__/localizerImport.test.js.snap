@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should import default localizer 1`] = `
+"import localize from \\"./localizer\\";
+export default (() => <p>{localize(\\"1\\")}</p>);
+export const localizeKeyMap = {
+  1: \\"hello world\\"
+};"
+`;
+
+exports[`should import localizer 1`] = `
+"import { localize } from \\"./localizer\\";
+export default (() => <p>{localize(\\"0\\")}</p>);
+export const localizeKeyMap = {
+  0: \\"hello world\\"
+};"
+`;

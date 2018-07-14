@@ -9,6 +9,8 @@ input
 ```
 output
 ```
+import { localizer } from './localizer';
+
 <p>{localize("loc_0")}</p>;
 <Static>hello world</Static>;
 
@@ -24,6 +26,8 @@ input
 ```
 output
 ```
+import { localizer } from './localizer';
+
 <Title name={localize("loc_0")} id="title" />;
 
 export const localizeKeyMap = {
@@ -43,6 +47,8 @@ export const localizeKeyMap = {
     "keyPrefix": "loc_",
     "keyType": "serial",
     "localizer": "localize",
+    "localizerBinding": "named",
+    "localizerSource": "./localizer",
     "keyMapIdentifier": "localizeKeyMap"
 }
 ```

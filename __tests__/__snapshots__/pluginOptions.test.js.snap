@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shoud set key prefix 1`] = `
-"export default (() => <>
+exports[`should set key prefix 1`] = `
+"import { localize } from \\"./localizer\\";
+export default (() => <>
         <p>{localize(\\"test0\\")}</p>
         <Title id=\\"titleId\\" label=\\"lorem ipsum\\" />
     </>);
@@ -10,22 +11,46 @@ export const localizeKeyMap = {
 };"
 `;
 
-exports[`shoud set keyMapIdentifier 1`] = `
-"export default (() => <>
-        <p>{localize(\\"2\\")}</p>
+exports[`should set keyMapIdentifier 1`] = `
+"import { localize } from \\"./localizer\\";
+export default (() => <>
+        <p>{localize(\\"4\\")}</p>
         <Title id=\\"titleId\\" label=\\"lorem ipsum\\" />
     </>);
 export const testKeyMapIdentifier = {
-  2: \\"hello world\\"
+  4: \\"hello world\\"
 };"
 `;
 
-exports[`shoud set localizer 1`] = `
-"export default (() => <>
+exports[`should set localizer 1`] = `
+"import { testLocalizer } from \\"./localizer\\";
+export default (() => <>
         <p>{testLocalizer(\\"1\\")}</p>
         <Title id=\\"titleId\\" label=\\"lorem ipsum\\" />
     </>);
 export const localizeKeyMap = {
   1: \\"hello world\\"
+};"
+`;
+
+exports[`should set localizerBinding 1`] = `
+"import { localize } from \\"./localizer\\";
+export default (() => <>
+        <p>{localize(\\"3\\")}</p>
+        <Title id=\\"titleId\\" label=\\"lorem ipsum\\" />
+    </>);
+export const localizeKeyMap = {
+  3: \\"hello world\\"
+};"
+`;
+
+exports[`should set localizerSource 1`] = `
+"import { localize } from \\"testlocalizerSource\\";
+export default (() => <>
+        <p>{localize(\\"2\\")}</p>
+        <Title id=\\"titleId\\" label=\\"lorem ipsum\\" />
+    </>);
+export const localizeKeyMap = {
+  2: \\"hello world\\"
 };"
 `;

@@ -37,6 +37,8 @@ test('should override', () => {
         keyPrefix: '__',
         keyType: "guid",
         localizer: "reactIntl",
+        localizerSource: "react-intl",
+        localizerBinding: "named",
         keyMapIdentifier: "keymap",        
     }
     const output = init(input);

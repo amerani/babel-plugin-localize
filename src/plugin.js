@@ -1,4 +1,4 @@
-const { buildKeyMap } = require('./builders');
+const { buildKeyMap, buildImports } = require('./builders');
 const { replaceJsxAttribute, replaceJsxText } = require('./replacers');
 const context = require('./context');
 
@@ -13,6 +13,7 @@ module.exports = function({types}){
         visitor: {
             Program(path, state) {
                 _context.setOptions = state.opts;
+                buildImports(path, _context);
                 buildKeyMap(path, _context);
             },
             JSXText(path, state) {

@@ -16,7 +16,31 @@ function buildCallExpression({types:t, options, arg}) {
             [t.stringLiteral(arg)]))
 }
 
+function buildImports(path, ctx) {
+    const {types, options} = ctx;
+    const { localizerBinding } = options;
+    const importNode = localizerBinding === 'default'
+        ? buildDefaultImport({types, options})
+        : buildNamedImport({types, options});
+    path.node.body.unshift(importNode)
+}
+
+function buildNamedImport({types:t,options}){
+    const { localizer, localizerSource } = options;
+    return t.importDeclaration([
+        t.importSpecifier(t.identifier(localizer), t.identifier(localizer)),
+    ], t.stringLiteral(localizerSource));
+}
+
+function buildDefaultImport({types:t,options}) {
+    const { localizer, localizerSource } = options;
+    return t.importDeclaration([
+        t.importDefaultSpecifier(t.identifier(localizer)),
+    ], t.stringLiteral(localizerSource));
+}
+
 module.exports = {
     buildKeyMap, 
-    buildCallExpression
+    buildCallExpression,
+    buildImports
 }
