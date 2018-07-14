@@ -4,7 +4,7 @@ const defaultOptions = {
     keyPrefix: "",
     keyType: "serial",
     localizer: "localize",
-    keyMapIdentifier: "localizeKeyMap",
+    keyMapIdentifier: "localizeKeyMap"
 }
 
 function init(options) {

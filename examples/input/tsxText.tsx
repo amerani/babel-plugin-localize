@@ -13,3 +13,5 @@ export default class ListPage {
         </App>)
     }
 }
+
+export const some2 = {}

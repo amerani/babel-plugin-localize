@@ -1,1 +1,1 @@
-module.exports.transform = require('./package').transform;
+module.exports = require('./plugin');
