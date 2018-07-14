@@ -3,12 +3,11 @@ const { isPunctuation } = require('./utils');
 function shouldReplaceJsxText({path, types:t, options}) {
     const { elementsPreserveJsxText } = options;
     const value = path.node.value;
-    const parentName = path.parent.openingElement.name.name;
-    
+
     return  value != null &&
             value.trim() !== '' &&
             t.isJSXElement(path.parent) &&
-            !elementsPreserveJsxText[parentName] &&
+            !elementsPreserveJsxText[path.parent.openingElement.name.name] &&
             !isPunctuation(value);
 }
 

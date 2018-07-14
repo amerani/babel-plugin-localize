@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shoud set key prefix 1`] = `
+"export default (() => <>
+        <p>{localize(\\"test0\\")}</p>
+        <Title id=\\"titleId\\" label=\\"lorem ipsum\\" />
+    </>);
+export const localizeKeyMap = {
+  test0: \\"hello world\\"
+};"
+`;
+
+exports[`shoud set keyMapIdentifier 1`] = `
+"export default (() => <>
+        <p>{localize(\\"2\\")}</p>
+        <Title id=\\"titleId\\" label=\\"lorem ipsum\\" />
+    </>);
+export const testKeyMapIdentifier = {
+  2: \\"hello world\\"
+};"
+`;
+
+exports[`shoud set localizer 1`] = `
+"export default (() => <>
+        <p>{testLocalizer(\\"1\\")}</p>
+        <Title id=\\"titleId\\" label=\\"lorem ipsum\\" />
+    </>);
+export const localizeKeyMap = {
+  1: \\"hello world\\"
+};"
+`;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shoud transform attribute 1`] = `
+"export default (() => <>
+        <p>{localize(\\"0\\")}</p>
+        <Title id=\\"titleId\\" label={localize(\\"1\\")} />
+    </>);
+export const localizeKeyMap = {
+  0: \\"hello world\\",
+  1: \\"lorem ipsum\\"
+};"
+`;
+
+exports[`should transform attribute 1`] = `
+"export default (() => <>
+        <p>{localize(\\"0\\")}</p>
+        <Title id=\\"titleId\\" label={localize(\\"1\\")} />
+    </>);
+export const localizeKeyMap = {
+  0: \\"hello world\\",
+  1: \\"lorem ipsum\\"
+};"
+`;

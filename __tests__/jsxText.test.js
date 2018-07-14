@@ -1,23 +1,20 @@
-const { transform } = require('../src/package');
+const babel = require('@babel/core');
+const plugin = require('../src/index');
+
+const example = `
+export default () => (
+    <>
+        <p>hello world</p>
+        <static>special text</static>
+    </>
+);
+`
 
 test('should transform text', () => {
-    const input = `<p>hello world</p>;`;
-    const output = transform(input);
-    expect(output.code).toBe(`<p>loc_0</p>;const keyMap = { loc_0: \"hello world\" };`);
-})
-
-test('should not transform text', () => {
-    const input = `<static>hello world</static>;`;
-    const output = transform(input, {
-        elementsPreserveJsxText: { static: 1 }
-    });
-    expect(output.code).toBe(`${input}const keyMap = {};`);
-})
-
-test('should replace text with function expression', () => {
-    const input = `<p>hello world</p>;`;
-    const output = transform(input, {
-        key: { type: 'function', functionName: 'loc' }
-    });
-    expect(output.code).toBe(`<p>{loc(\"loc_0\")}</p>;const keyMap = { loc_0: \"hello world\" };`);
+    const { code } = babel.transform(example, {plugins:[[plugin, {
+        "elementsPreserveJsxText": {
+            "static": true
+        }
+    }]]});
+    expect(code).toMatchSnapshot();
 })
