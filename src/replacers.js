@@ -4,42 +4,34 @@ const { buildCallExpression } = require('./builders');
 
 function replaceJsxText(path, context) {
     const { types, options } = context
+    const { keyMapIdentifier:id, keyPrefix } = options;
+    
     if(shouldReplaceJsxText({path, types, options})){
         const value = path.node.value.trim();
-        const key = `${options.key.keyName}${context.id++}`;
-    
-        if(options.key.type === "function") {
-            const node = buildCallExpression({
-                types,
-                options,
-                arg: key
-            })
-            path.replaceWith(node);
-        } else {
-            path.node.value = key;
-        }
-        add({id:'keyMap', path, types, key, value});
+        const key = `${keyPrefix}${context.id++}`;
+        const node = buildCallExpression({
+            types,
+            options,
+            arg: key
+        })
+        path.replaceWith(node);
+        add({id, path, types, key, value});
     }
-    // if(value.trim() === '' && !isPunctuation(value)){
-    //     path.node.value = value.trim();
-    // }
 }
 
 function replaceJsxAttribute(path, context) {
     const { types, options } = context
+    const { keyMapIdentifier:id, keyPrefix } = options;
+
     if(shouldReplaceJsxAttribute({path, types, options}))
     {
         const value = path.node.value.value;
-        const key = `${options.key.keyName}${context.id++}`;
-        if(options.key.type === 'function') {
-            path.node.value = buildCallExpression({
-                types,options,arg:key
-            })
-        }
-        else {
-            path.node.value = types.stringLiteral(key)
-        }
-        add({id:'keyMap', path, types, key, value});
+        const key = `${keyPrefix}${context.id++}`;
+
+        path.node.value = buildCallExpression({
+            types,options,arg:key
+        })
+        add({id, path, types, key, value});
     } 
 }
 

@@ -11,7 +11,8 @@ module.exports = function({types}){
             parserOpts.plugins.push('classProperties', 'typescript', 'jsx')
         },
         visitor: {
-            Program(path) {
+            Program(path, state) {
+                _context.setOptions = state.opts;
                 buildKeyMap(path, _context);
             },
             JSXText(path, state) {

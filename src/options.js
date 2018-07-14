@@ -1,26 +1,20 @@
 const defaultOptions = {
-    key: {
-        type: 'string',
-        functionName: 'loc',
-        keyName: 'loc_'
-    },
     elementsReplaceStringAttributes: {},
-    elementsPreserveJsxText: {}
+    elementsPreserveJsxText: {},
+    keyPrefix: "",
+    keyType: "serial",
+    localizer: "localize",
+    keyMapIdentifier: "localizeKeyMap",
 }
 
 function init(options) {
-    return Object.assign(defaultOptions, {
-        key: Object.assign(defaultOptions.key, options.key),
-        elementsReplaceStringAttributes: Object.assign(
-            defaultOptions.elementsReplaceStringAttributes,
-            options.elementsReplaceStringAttributes),
-        elementsPreserveJsxText: Object.assign(
-            defaultOptions.elementsPreserveJsxText,
-            options.elementsPreserveJsxText
-        )
-    });
+    return {
+        ...defaultOptions,
+        ...options
+    }
 }
 
 module.exports = {
-    init
+    init,
+    defaultOptions
 }

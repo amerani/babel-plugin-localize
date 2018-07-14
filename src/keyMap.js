@@ -4,9 +4,13 @@
 ** types: @babel/types
 **/
 function init({id, node, types:t}) {
-    node.body.push(t.variableDeclaration("const", [
-        t.variableDeclarator(t.identifier(id), t.objectExpression([]))
-    ]))  
+    const lhs = t.memberExpression(t.memberExpression(
+        t.identifier("module"),
+        t.identifier("exports")),t.identifier(id));
+    const rhs = t.objectExpression([]);
+    const newNode = t.expressionStatement(t.assignmentExpression("=",lhs, rhs));
+
+    node.body.push(newNode);
 }
 
 /* 
@@ -18,13 +22,17 @@ function init({id, node, types:t}) {
 **/
 function add({id, path, types:t, key, value}){
     const programPath = path.findParent(path => path.isProgram());
+    const s = programPath.get('expression')
     const keyMapNode = programPath.node.body
-        .reduce((acc, node) => acc.concat(node.declarations),[])
-        .filter(dec => dec)
-        .filter(dec => dec.id.name === id)[0];
-    keyMapNode.init.properties.push(t.objectProperty(
+        .filter(t.isExpressionStatement)
+        .filter(n => t.isAssignmentExpression(n.expression))
+        .filter(n => t.isMemberExpression(n.expression.left))
+        .filter(n => n.expression.left.property.name === id)
+        .map(n => n.expression.right)[0];
+    
+        keyMapNode.properties.push(t.objectProperty(
         t.identifier(key), t.stringLiteral(value))
-    ) 
+    )
 }
 
 module.exports = {

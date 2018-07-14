@@ -2,14 +2,14 @@ const { init } = require('./keyMap');
 
 function buildKeyMap(path, ctx) {
     init({
-        id: 'keyMap',
+        id: ctx.options.keyMapIdentifier,
         node: path.node,
         types: ctx.types
     });
 }
 
 function buildCallExpression({types:t, options, arg}) {
-    const id = options.key.functionName;
+    const id = options.localizer;
     return t.jsxExpressionContainer(
         t.callExpression(
             t.identifier(id),
