@@ -18,7 +18,7 @@ const jsxAttribute = (
 ```
 output
 ```jsx
-import { localizer } from './localizer';
+import { localize } from './localizer';
 
 const jsxText = (
     <>

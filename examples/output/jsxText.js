@@ -9,8 +9,9 @@ export default function render() {
             <PreserveMyText>i am special</PreserveMyText>
         </App>];
 }
-export default {};
 export const k1 = 0;
+const o = 0;
+const k = 1;
 export { o, k };
 export const localizeKeyMap = {
   0: "here is some text",

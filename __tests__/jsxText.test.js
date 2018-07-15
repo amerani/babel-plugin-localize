@@ -8,13 +8,15 @@ export default () => (
         <static>special text</static>
     </>
 );
-`
+`;
 
 test('should transform text', () => {
-    const { code } = babel.transform(example, {plugins:[[plugin, {
-        "elementsPreserveJsxText": {
-            "static": true
-        }
-    }]]});
-    expect(code).toMatchSnapshot();
-})
+  const { code } = babel.transform(example, {
+    plugins: [[plugin, {
+      elementsPreserveJsxText: {
+        static: true,
+      },
+    }]],
+  });
+  expect(code).toMatchSnapshot();
+});

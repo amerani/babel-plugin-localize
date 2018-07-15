@@ -1,8 +1,8 @@
 export default function render() {
-    return ([
+  return ([
         <App>
             <LabelProvider label="important" className="inputLabel" />
             <Input id="id" />
-        </App>
-    ])
+        </App>,
+  ]);
 }

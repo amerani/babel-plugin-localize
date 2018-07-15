@@ -8,13 +8,15 @@ export default () => (
         <Title id="titleId" label="lorem ipsum" />
     </>
 );
-`
+`;
 
 test('should transform attribute', () => {
-    const { code } = babel.transform(example, {plugins:[[plugin, {
-        "elementsReplaceStringAttributes": {
-            "Title": ["label"]
-        }
-    }]]});
-    expect(code).toMatchSnapshot();
-})
+  const { code } = babel.transform(example, {
+    plugins: [[plugin, {
+      elementsReplaceStringAttributes: {
+        Title: ['label'],
+      },
+    }]],
+  });
+  expect(code).toMatchSnapshot();
+});

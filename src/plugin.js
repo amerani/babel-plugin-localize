@@ -1,29 +1,29 @@
 const { buildKeyMap, buildImports } = require('./builders');
 const { replaceJsxAttribute, replaceJsxText } = require('./replacers');
-const context = require('./context');
+const Context = require('./context');
 
-const _context = new context();
+const ctx = new Context();
 
-module.exports = function({types}){
-    _context.types = types;
-    return {
-        manipulateOptions(opts, parserOpts) {
-            parserOpts.plugins.push('classProperties', 'typescript', 'jsx')
-        },
-        visitor: {
-            Program(path, state) {
-                _context.setOptions = state.opts;
-                buildImports(path, _context);
-                buildKeyMap(path, _context);
-            },
-            JSXText(path, state) {
-                _context.setOptions = state.opts;
-                replaceJsxText(path, _context);
-            },
-            JSXAttribute(path, state) {
-                _context.setOptions = state.opts;
-                replaceJsxAttribute(path, _context);
-            }
-        }
-    }
-}
+module.exports = function ({ types }) {
+  ctx.types = types;
+  return {
+    manipulateOptions(_, parserOpts) {
+      parserOpts.plugins.push('classProperties', 'typescript', 'jsx');
+    },
+    visitor: {
+      Program(path, state) {
+        ctx.setOptions = state.opts;
+        buildImports(path, ctx);
+        buildKeyMap(path, ctx);
+      },
+      JSXText(path, state) {
+        ctx.setOptions = state.opts;
+        replaceJsxText(path, ctx);
+      },
+      JSXAttribute(path, state) {
+        ctx.setOptions = state.opts;
+        replaceJsxAttribute(path, ctx);
+      },
+    },
+  };
+};

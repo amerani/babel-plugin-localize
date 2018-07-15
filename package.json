@@ -4,9 +4,13 @@
   "description": "codemod to localize static strings",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
-  "repository": "https://github.com/amerani/babel-plugin-localize",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amerani/babel-plugin-localize.git"
+  },
   "author": "Alek Merani",
   "license": "MIT",
   "peerDependencies": {
@@ -14,6 +18,25 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.53",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.1.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
     "jest": "^23.4.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/amerani/babel-plugin-localize/issues"
+  },
+  "homepage": "https://github.com/amerani/babel-plugin-localize#readme",
+  "directories": {
+    "example": "examples"
+  },
+  "keywords": [
+    "babel",
+    "codemod",
+    "internationalization",
+    "localization",
+    "globalization",
+    "translation"
+  ]
 }
