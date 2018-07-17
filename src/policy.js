@@ -19,7 +19,7 @@ function shouldReplaceJsxAttribute({ path, types: t, options }) {
 
   return t.isStringLiteral(path.node.value)
             && attrs
-            && attrs.indexOf(attrName) >= 0;
+            && attrs.includes(attrName);
 }
 
 module.exports = {
